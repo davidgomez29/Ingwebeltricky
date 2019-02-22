@@ -4,65 +4,65 @@
             
             
             var mBoard = ["1","2","3","4","5","6","7","8","9"];
-            displayBoard();
+            
+            
+            
 
-const BOARD_SIZE = 9;
-
-
+var BOARD_SIZE = 9;
 
 // Nivel de dificultad
 
-var DifficultyLevel = {Easy, Harder, Expert};
+const DifficultyLevel = {Easy: 'easy', Harder: 'harder', Expert: 'expert'};
 
 // Nivel de dificultad actual
 
-mDifficultyLevel = DifficultyLevel.Expert;
+var mDifficultyLevel = DifficultyLevel.Harder;
 
 //Representacion de jugadas del jugador en el tablero
 
-let HUMAN_PLAYER = 'X';
+var HUMAN_PLAYER = 'X';
 
 //Representacion de jugadas del computador en el tablero
 
-let COMPUTER_PLAYER = 'O';
+var COMPUTER_PLAYER = 'O';
 
 //Representacion de casillas disponibles en el tablero
 
-let  OPEN_SPOT = ' ';
+var  OPEN_SPOT = ' ';
 
 //Numero aleatorio para siguiente movimiento del computador
 
-let mRand= Math.floor((Math.random() * (100-1))+1);
+var aleatorio;
 
 
-function Tricky(){
+    function Tricky()
+    {
 
-// Semilla para el generador de numeros aleatorios
+    // Semilla para el generador de numeros aleatorios
 
-mRand = new Random();
+      aleatorio =  Math.floor(Math.random()*10);
 
-}
+    }
 
-function displayBoard(){
+            function displayBoard()
+            {
+
+            console.log("Buenas");
+
+            console.log(mBoard[0] + " | " + mBoard[1] + " | " + mBoard[2]);
+
+            console.log("-----------");
+
+            console.log(mBoard[3] + " | " + mBoard[4] + " | " + mBoard[5]);
+
+            console.log("-----------");
+
+            console.log(mBoard[6] + " | " + mBoard[7] + " | " + mBoard[8]);
 
 
+            console.log();
 
-console.log("Buenas");
-
-console.log(mBoard[0] + " | " + mBoard[1] + " | " + mBoard[2]);
-
-console.log("-----------");
-
-console.log(mBoard[3] + " | " + mBoard[4] + " | " + mBoard[5]);
-
-console.log("-----------");
-
-console.log();
-(mBoard[6] + " | " + mBoard[7] + " | " + mBoard[8]);
-
-console.log();
-
-}
+            }
 
 
 
@@ -76,163 +76,130 @@ console.log();
 
 // 3 si O gano
 
-function checkForWinner() {
+
+
+                        function checkForWinner() 
+                        {
 
 
 
-// Verifica ganador en horizontales
+                        // Verifica ganador en horizontales
 
-for (var i = 0; i <= 6; i += 3) 
-{
+                            for (var i = 0; i <= 6; i += 3) 
+                            {
 
-        if (mBoard[i] == HUMAN_PLAYER &&
+                                    if (mBoard[i] == HUMAN_PLAYER && mBoard[i+1] == HUMAN_PLAYER && mBoard[i+2]== HUMAN_PLAYER)
 
-        mBoard[i+1] == HUMAN_PLAYER &&
+                                    return 2; //x gano
 
-        mBoard[i+2]== HUMAN_PLAYER)
+                                    if (mBoard[i] == COMPUTER_PLAYER && mBoard[i+1]== COMPUTER_PLAYER && mBoard[i+2] == COMPUTER_PLAYER)
 
-        return 2;
+                                    return 3; //o gano
 
-        if (mBoard[i] == COMPUTER_PLAYER &&
-
-        mBoard[i+1]== COMPUTER_PLAYER &&
-
-        mBoard[i+2] == COMPUTER_PLAYER)
-
-        return 3;
-
-}
+                            }
 
 
 
-// Verifica ganador en verticales
+                        // Verifica ganador en verticales
 
-for (var i = 0; i <= 2; i++) {
+                        for (var i = 0; i <= 2; i++) 
+                        {
 
-        if (mBoard[i] == HUMAN_PLAYER &&
+                                if (mBoard[i] == HUMAN_PLAYER && mBoard[i+3] == HUMAN_PLAYER && mBoard[i+6]== HUMAN_PLAYER)
 
-        mBoard[i+3] == HUMAN_PLAYER &&
+                                return 2; //x gano
 
-        mBoard[i+6]== HUMAN_PLAYER)
+                                if (mBoard[i] == COMPUTER_PLAYER && mBoard[i+3] == COMPUTER_PLAYER && mBoard[i+6]== COMPUTER_PLAYER)
 
-        return 2;
+                                return 3; //o gano
 
-        if (mBoard[i] == COMPUTER_PLAYER &&
+                        }
 
-        mBoard[i+3] == COMPUTER_PLAYER &&
+                        // Verifica ganador en diagonales
 
-        mBoard[i+6]== COMPUTER_PLAYER)
+                        if ((mBoard[0] == HUMAN_PLAYER && mBoard[4] == HUMAN_PLAYER && mBoard[8] == HUMAN_PLAYER) || (mBoard[2] == HUMAN_PLAYER && mBoard[4] == HUMAN_PLAYER && mBoard[6] == HUMAN_PLAYER))
 
-        return 3;
+                        return 2; //x gano
 
-}
+                        if ((mBoard[0] == COMPUTER_PLAYER && mBoard[4] == COMPUTER_PLAYER && mBoard[8] == COMPUTER_PLAYER) || (mBoard[2] == COMPUTER_PLAYER && mBoard[4] == COMPUTER_PLAYER && mBoard[6] == COMPUTER_PLAYER))
 
+                        return 3; //o gano
 
+                        // Verifica si hay empate
 
-// Verifica ganador en diagonales
+                            for (var i = 0; i < BOARD_SIZE; i++) 
+                            {
 
-if ((mBoard[0] == HUMAN_PLAYER &&
+                            // Si hay una casilla sin movimiento ni humano ni del computador aun no hay ganador ni empate
 
-mBoard[4] == HUMAN_PLAYER &&
+                            if (mBoard[i] != HUMAN_PLAYER && mBoard[i] != COMPUTER_PLAYER)
 
-mBoard[8] == HUMAN_PLAYER) ||
+                            return 0; //no hay empate
 
-(mBoard[2] == HUMAN_PLAYER &&
-
-mBoard[4] == HUMAN_PLAYER &&
-
-mBoard[6] == HUMAN_PLAYER))
-
-return 2;
-
-if ((mBoard[0] == COMPUTER_PLAYER &&
-
-mBoard[4] == COMPUTER_PLAYER &&
-
-mBoard[8] == COMPUTER_PLAYER) ||
-
-(mBoard[2] == COMPUTER_PLAYER &&
-
-mBoard[4] == COMPUTER_PLAYER &&
-
-mBoard[6] == COMPUTER_PLAYER))
-
-return 3;
+                            }
 
 
 
-// Verifica si hay empate
+                        // Si ningun caso anterior se presenta, entonces es un empate
 
-for (var i = 0; i < BOARD_SIZE; i++) {
+                        return 1; //empate
 
-// Si hay una casilla sin movimiento ni humano ni del computador aun no hay ganador ni empate
-
-if (mBoard[i] != HUMAN_PLAYER && mBoard[i] != COMPUTER_PLAYER)
-
-return 0;
-
-}
-
-
-
-// Si ningun caso anterior se presenta, entonces es un empate
-
-return 1;
-
-}
+                        }
 
 //getComputerMove(). Retorna
 
 //Se obtiene la casilla donde jugara el computador dependiendo de la dificultad
 
 function getComputerMove()
-
 {
 
 var move;
 
 //Si la dificultad es facil
 
-if(mDifficultyLevel == DifficultyLevel.Easy){
+if(mDifficultyLevel == DifficultyLevel.Easy)
+{
 
 //Se calcula un movimiento aleatorio disponible
 
-do
+    do
+    {
 
-{
+    move = Math.floor(Math.random()*10);
+    console.log(move);
 
-move = mRand.nextInt(BOARD_SIZE);
+    //.nextInt(BOARD_SIZE);
 
-} while (mBoard[move] == HUMAN_PLAYER || mBoard[move] == COMPUTER_PLAYER);
+    } while (mBoard[move] == HUMAN_PLAYER || mBoard[move] == COMPUTER_PLAYER);
 
 //Si la dificultad es dificil
 
-}else if(mDifficultyLevel == DifficultyLevel.Harder){
+    }else if(mDifficultyLevel == DifficultyLevel.Harder){
 
 // Se evalua si hay un movimiento para que el computador gane
 
-for (var i = 0; i < BOARD_SIZE; i++) {
+for (var i = 0; i < BOARD_SIZE; i++)
+{
 
-if (mBoard[i] != HUMAN_PLAYER && mBoard[i] != COMPUTER_PLAYER) {
+if (mBoard[i] != HUMAN_PLAYER && mBoard[i] != COMPUTER_PLAYER) 
+{
 
-var curr = mBoard[i];
+    var curr = mBoard[i];
 
-mBoard[i] = COMPUTER_PLAYER;
+    mBoard[i] = COMPUTER_PLAYER;
 
-if (checkForWinner() == 3) {
+        if (checkForWinner() == 3)
+        {
 
-System.out.println("Computer is moving to " + (i + 1));
+        console.log("Computer is moving to " + (i + 1));
 
-return i;
+        return i;
 
-}
+        }else
 
-else
+            mBoard[i] = curr;
 
-mBoard[i] = curr;
-
-}
-
+        }
 }
 
 // De lo contrario de genera un movimiento aleatorio
@@ -241,7 +208,7 @@ do
 
 {
 
-move = mRand.nextInt(BOARD_SIZE);
+move = Math.floor(Math.random()*10);
 
 } while (mBoard[move] == HUMAN_PLAYER || mBoard[move] == COMPUTER_PLAYER);
 
@@ -261,7 +228,7 @@ mBoard[i] = COMPUTER_PLAYER;
 
 if (checkForWinner() == 3) {
 
-System.out.println("Computer is moving to " + (i + 1));
+console.log("Computer is moving to " + (i + 1));
 
 return i;
 
@@ -291,7 +258,7 @@ mBoard[i] = COMPUTER_PLAYER;
 
 setMove(COMPUTER_PLAYER, i);
 
-System.out.println("Computer is moving to " + (i + 1));
+console.log("Computer is moving to " + (i + 1));
 
 return i;
 
@@ -311,13 +278,13 @@ do
 
 {
 
-move = mRand.nextInt(BOARD_SIZE);
+move = Math.floor(Math.random()*10);
 
 } while (mBoard[move] == HUMAN_PLAYER || mBoard[move] == COMPUTER_PLAYER);
 
 }
 
-System.out.println("Computer is moving to " + (move + 1));
+console.log("El computador esta moviendo a la casilla  " + (move + 1));
 
 
 
@@ -331,15 +298,17 @@ return move;
 
 //Limpia el tablero
 
-function clearBoard(){
+    function clearBoard()
+    {
 
-for(var i = 0; i<BOARD_SIZE; i++){
+        for(var i = 0; i<BOARD_SIZE; i++)
+        {
 
-mBoard[i]=OPEN_SPOT;
+        mBoard[i]=OPEN_SPOT;
 
-}
+        }
 
-}
+    }
 
 //setMove()
 
@@ -347,15 +316,19 @@ mBoard[i]=OPEN_SPOT;
 
 //Retorna falso si la casilla esta ocupada, de lo contrario retorna verdadero
 
-function setMove( player, location){
+function setMove( player, location)
+{
 
-if(mBoard[location]==OPEN_SPOT){
+if(mBoard[location]==OPEN_SPOT)
+{
 
-if(player == HUMAN_PLAYER){
+if(player == HUMAN_PLAYER)
+{
 
 mBoard[location]=HUMAN_PLAYER;
 
-}else{
+}else
+{
 
 mBoard[location]=COMPUTER_PLAYER;
 
@@ -371,7 +344,8 @@ return false;
 
 
 
-function  getDifficultyLevel(){
+function  getDifficultyLevel()
+{
 
 return mDifficultyLevel;
 
@@ -379,7 +353,8 @@ return mDifficultyLevel;
 
 
 
-function setDifficultyLevel(mDifficultyLevel) {
+function setDifficultyLevel(mDifficultyLevel)
+{
 
 this.mDifficultyLevel = mDifficultyLevel;
 
@@ -387,37 +362,89 @@ this.mDifficultyLevel = mDifficultyLevel;
 
 
 
-function getBoardOccupant(i) {
+function getBoardOccupant(i)
+{
 
-return mBoard[i];
-
-}
-
-
-
-function getBoardState() {
-
-return mBoard;
+    return mBoard[i];
 
 }
 
 
 
-function setBoardState(charArray) {
+function getBoardState()
+{
 
-mBoard = charArray;
-
+    return mBoard;
 
 }
 
+
+
+function setBoardState(charArray)
+{
+
+    mBoard = charArray;
+
+}
+
+   
+    clearBoard();
+    displayBoard();
+
+
+    do{
+
+            var jug = prompt("digite a donde quiere atacar");
+            setMove(HUMAN_PLAYER, jug);
+            displayBoard();
+
+            var localcomp = getComputerMove();
+            setMove(COMPUTER_PLAYER, localcomp);
+            displayBoard();
+
+console.log(checkForWinner());
+
+    }while(checkForWinner()==0)
+
+       if(checkForWinner()==1){
+           console.log("empataste");
+       }
+       if(checkForWinner()==2){
+           console.log("ganaste");
+       }
+       if(checkForWinner()==3){
+           console.log("perdiste");
+       }
+
+
+
+       
+    
+    
 
     
+
+    
+   
+
+
+
             </SCRIPT>
 
 
     </HEAD>
 
     <BODY>
+        <button>" "</button>
+        <button>" " </button>
+        <button>" "</button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+
         <h1>Hola</h1>
     </BODY>
 </HTML>
